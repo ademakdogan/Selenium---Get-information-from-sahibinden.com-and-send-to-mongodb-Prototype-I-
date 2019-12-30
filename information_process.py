@@ -13,7 +13,7 @@ from pymongo import MongoClient
 class information_process():
 
     
-    def final_process(self,list1,price_list1):
+    def final_process(self,list1,price_list1,id_list):
         list2 = []
         list3 = []
         for i in range(len(list1)):
@@ -34,6 +34,9 @@ class information_process():
              price_list_2.append(a)
         for i in range(len(price_list_2)):
             list2[i].append(price_list_2[i][0])
+            
+        for i in range(len(id_list)):
+            list2[i].append(id_list[i])
         return list2
     
     def send_mongo(self, final_list):
@@ -41,6 +44,7 @@ class information_process():
         arac_ = {}
         for i in range(len(final_list)):
             arac_[i] = {
+                    "Id" : final_list[i][4],
                     "Yıl" : final_list[i][0],
                     "Km" : final_list[i][1],
                     "Renk" : final_list[i][2],

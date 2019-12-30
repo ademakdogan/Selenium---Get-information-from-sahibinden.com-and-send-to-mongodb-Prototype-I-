@@ -43,8 +43,8 @@ class Bot():
         browser.find_element_by_link_text("İlçe").click()
         time.sleep(1)
         browser.find_element_by_link_text(self.ilce).click()
-        #browser.find_element_by_link_text("Bayraklı").click()
-        #browser.find_element_by_link_text("Buca").click()
+        browser.find_element_by_link_text("Bayraklı").click()
+        browser.find_element_by_link_text("Buca").click()
         time.sleep(1)
         browser.find_element_by_xpath("//*[@id='searchResultLeft-address']/dl/dd/ul/li[2]/div/a").click()
         time.sleep(1)
@@ -68,6 +68,16 @@ class Bot():
         price_list = []
         for i in price_list_first:
             price_list.append(i.text)
+        
+        id_list3 = browser.find_elements_by_class_name("searchResultsItem")
+        id_list = []
+        
+        for i in id_list3:
+            data_id = i.get_attribute("data-id")    
+            if data_id == None:
+                pass
+            else:
+                id_list.append(data_id)
                 
         #1 den fazla sayfa için try-except
         while True :
@@ -81,8 +91,15 @@ class Bot():
                 c = browser.find_elements_by_css_selector("td[class = 'searchResultsPriceValue']")
                 for i in c:
                     price_list.append(i.text)
+                d = browser.find_elements_by_class_name("searchResultsItem")
+                for i in d:
+                    data_id = i.get_attribute("data-id")    
+                    if data_id == None:
+                        pass
+                    else:
+                        id_list.append(data_id)
                 time.sleep(1)
                 
             except (NoSuchElementException):
                 break 
-        return list1,price_list
+        return list1,price_list,id_list
