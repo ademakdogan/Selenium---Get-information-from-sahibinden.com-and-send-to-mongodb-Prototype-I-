@@ -7,6 +7,7 @@ Created on Wed Dec 25 10:29:41 2019
 from selenium import webdriver
 import re
 from pymongo import MongoClient
+import config
 
 
 
@@ -51,7 +52,7 @@ class information_process():
                     "Fiyat" : final_list[i][3]
                     }
             araclar.append(arac_[i])
-        client = MongoClient("mongodb+srv://admin:admin@cluster0-azjtd.mongodb.net/test?retryWrites=true&w=majority")
+        client = MongoClient(config.mongo)
         db = client.get_database("admin_db")
         records = db.test
         records.insert_many(araclar)
